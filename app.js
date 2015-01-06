@@ -9,42 +9,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Configre port  
-var port = 8080;      
-app.listen(port);
+app.listen(process.env.PORT || 8080);
 
 // Create a base route
-var router = express.Router();
-var rootURL = process.env.rootURL || '/api';
-app.use(rootURL, router);
+var routes  = require('./app/routes');
+app.use('/', routes);
 
-console.log("Listening on url : " + rootURL + "/" + port)
+// view engine setup
+app.set('views','app/views');
+app.set('view engine', 'jade');
 
-// Add a requrest handler
-router.get('/', function(req, res) {
-  res.json({ message: 'geeksaint.com API!' });   
-});
+app.use(express.static('./public'));
 
-/*  ***************** DB config ***************  */
-var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/gsb_dev'); 
-
-//Test db connection
-var User     = require('./app/models/users');
-
-router.route("/users")
-  .get(function(req, res) {
-    res.json({
-      message: 'here is your user'
-    });
-  })
-  .post(function(req, res){
-    var user = new User();
-    user.name = req.body.name;
-  
-    user.save(function(err) {
-      if(err){
-          res.send(err);
-      }
-      res.json({ message: 'User created! with name: ' + user.name });
-    });
-});
