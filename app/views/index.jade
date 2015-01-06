@@ -3,7 +3,11 @@ html(lang="en")
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='javascripts/lib/angular.js')
-  body
-    h1 Simply chat
-    #container
-      p Here comes the rest of it.
+    script(src='javascripts/lib/angular-ui-router.js')
+    script(src='javascripts/main.js')
+    script(src='javascripts/client-routes.js')
+    script(src='javascripts/controllers/home-page-controller.js')
+  body(ng-app="simply-chat")
+    #ng-container.container(ui-view='default', ng-controller='HomePageController', ng-init='redirectToLogin()')
+      #content
+        block content

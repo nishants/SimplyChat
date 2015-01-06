@@ -4,7 +4,7 @@ var express    = require("express");
 var bodyParser = require("body-parser");
 
 // Create and configure an express app
-var app        = express();
+var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -19,5 +19,5 @@ app.use('/', routes);
 app.set('views','app/views');
 app.set('view engine', 'jade');
 
+//Directory for static files
 app.use(express.static('./public'));
-
