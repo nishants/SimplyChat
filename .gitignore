@@ -1,2 +1,3 @@
-*.DS_Store
+.c9/
 node_modules/
+.c9/metadata/tab4
