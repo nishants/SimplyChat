@@ -25,7 +25,7 @@ app.set('view engine', 'jade');
 //Directory for static files
 app.use(express.static('./public'));
 
-//Setup socket
+//Setup websocket server
 var server = http.createServer(app);
 
 var sio = io.listen(server);
@@ -34,7 +34,8 @@ server.listen(3000, function(){
 });
 
 sio.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
+  var newUser = socket.handshake.query.username;
+  socket.emit('news', { hello: newUser });
   socket.on('my other event', function (data) {
     console.log(data);
   });
