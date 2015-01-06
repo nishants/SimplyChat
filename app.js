@@ -15,8 +15,8 @@ app.listen(process.env.PORT || 8080);
 var routes  = require('./app/routes');
 app.use('/', routes);
 
-// view engine setup
-app.set('views','app/views');
+// view configuration
+app.set('views','public/views');
 app.set('view engine', 'jade');
 
 //Directory for static files

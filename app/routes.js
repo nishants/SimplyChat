@@ -7,7 +7,7 @@ router.get('/', function(req, res) {
 
 router.route("/views/:name").get(
   function(req, res){
-    res.render('partials/' + req.params.name.replace('.html',''));
+    res.render(req.params.name.replace('.html',''));
   });
 
 router.route("/users")
