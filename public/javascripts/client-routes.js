@@ -3,15 +3,23 @@
   schat.app.config([
     '$stateProvider',
     function($stateProvider) {
-      return $stateProvider.state('login', {
-        url: "/login",
+      return $stateProvider.state('loginForm', {
+        url: "/loginForm",
         views: {
           default: {
             templateUrl: "views/_login.html",
-            controller: "HomePageController"
+            controller: "LoginPageController"
           }
         }
-      })
+      }).state('login', {
+        url: "/login",
+        views: {
+          default: {
+            templateUrl: "views/_user_dashboard.html",
+            controller: "UserDashboardController"
+          }
+        }
+      });
     }
   ]);
 }).call(this);

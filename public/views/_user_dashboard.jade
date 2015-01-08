@@ -1,0 +1,10 @@
+#user-dashboard
+  .row(ng-repeat="user in users")
+    .card.small(ng-click='talkTo(user)')
+      .card-image.waves-effect.waves-block.waves-light
+        img(src='{{user.profile_img}}')
+      .card-content
+        div.card-title.activator.grey-text.text-darken-4
+          span {{user.username}}
+        p
+          a(href='#') {{user.status}}
