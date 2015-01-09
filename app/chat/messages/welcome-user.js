@@ -1,6 +1,7 @@
-var WelcomeUserMessage = function(user) {
+var WelcomeUserMessage = function(user, otherUsers) {
   return {
-    user: user.username
+    welcome: user,
+    onlineUsers: otherUsers
   };
 }
 

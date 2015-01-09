@@ -1,34 +1,45 @@
- var welcome = require('./messages/welcome-user');
+var welcome = require('./messages/welcome-user');
 
- var chatServer = function(websocket) {
-   var onlineUsers = [];
-   var openedChatRooms = [];
+var chatServer = function (websocket) {
+  var userSockets = new HashMap();
 
-   var addUser = function(user) {
-     onlineUsers.push(user);
-   };
+  var addUserFor = function (socket) {
+    userSockets.set(socket, userFor(socket));
+  };
 
-   var openChatroom = function(chatRoom) {
-     openedChatRooms.push(chatRoom);
-   };
+  var userFor = function (socket) {
+    return {
+      username: socket.handshake.query.username,
+      status: "online",
+      profile_img: "images/office.jpg"
+    };
+  };
 
-   var userFor = function(socket) {
-     return {
-       username: socket.handshake.query.username
-     };
-   };
+  var socketFor = function (username) {
+    for (var socket in userSockets) {
+      var user = userSockets.get(socket);
+      if (user != null && user.username.equal(username)) return socket;
+    }
+    return null;
+  };
 
-   var registerUser = function(socket) {
-     addUser(userFor(socket));
-     socket.emit('welcome', welcome(userFor(socket)));
-     // Create chatroom(user, chatroom)
-     // Send invitation to a user(chatroom, userOne , userTwo)
-     // log off(user)
-     //close chatroom(chatroom)
-     // set status
-   };
+  var registerUser = function (socket) {
+    if (socketFor(userFor(socket).username) == null) {
+      socket.emit(
+          'welcome',
+          welcome(userFor(socket), userSockets.values())
+      );
+      addUserFor(socket);
+    }
 
-   websocket.on('connection', registerUser);
- };
+    // Create chatroom(user, chatroom)
+    // Send invitation to a user(chatroom, userOne , userTwo)
+    // log off(user)
+    //close chatroom(chatroom)
+    // set status
+  };
 
- module.exports = chatServer;
+  websocket.on('connection', registerUser);
+};
+
+module.exports = chatServer;

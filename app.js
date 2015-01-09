@@ -2,6 +2,7 @@
 // Dependencies
 var express    = require("express");
 var bodyParser = require("body-parser");
+HashMap = require('hashmap').HashMap;
 
 // Create and configure an express app
 var app = express();
@@ -24,6 +25,7 @@ app.set('view engine', 'jade');
 //Directory for static files
 app.use(express.static('./public'));
 
-//Setup websocket servervar chatServer = ChatServer(app);
+//Setup chat server
 var webSocket = require('./app/web-socket')(app, 3000);
 var chatServer = require('./app/chat/chat-server')(webSocket);
+

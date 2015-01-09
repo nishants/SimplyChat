@@ -6,7 +6,6 @@
     };
 
     $scope.login = function() {
-      //onLogin()
       session.login($scope.user, onLogin)
     }
   });
