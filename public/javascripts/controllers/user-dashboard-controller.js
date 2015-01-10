@@ -4,7 +4,7 @@
     $scope.users = session.onlineUsers();
 
     $scope.talkTo = function (user) {
-      $location.url("/login")
+      $location.url("/chatRoom/myChatRoom")
       console.log("lets talk to " + user.username)
     }
   });

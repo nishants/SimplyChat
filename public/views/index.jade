@@ -3,17 +3,20 @@ html(lang="en")
     title='SimplyChat'
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/lib/materialize.min.css')
+    link(rel='stylesheet', href='/stylesheets/chat.css')
+
     script(src='javascripts/lib/angular.js')
     script(src='javascripts/lib/angular-ui-router.js')
     script(src='javascripts/lib/jquery-2.1.3.min.js')
     script(src='javascripts/lib/materialize.min.js')
 
     script(src='socket.io/socket.io.js')
-    
+
     script(src='javascripts/main.js')
     script(src='javascripts/client-routes.js')
     script(src='javascripts/services/session.js')
 
+    script(src='javascripts/controllers/chat-room-controller.js')
     script(src='javascripts/controllers/home-page-controller.js')
     script(src='javascripts/controllers/login-page-controller.js')
     script(src='javascripts/controllers/user-dashboard-controller.js')

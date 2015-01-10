@@ -1,7 +1,8 @@
 (function() {
   'use strict';
   schat.app.controller('LoginPageController', function($scope, $location, $rootScope, session) {
-    var onLogin = function(){
+    var onLogin = function(loggedInUser){
+      $rootScope.currentUser = loggedInUser;
       $location.url("/login")
     };
 

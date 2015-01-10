@@ -19,6 +19,14 @@
             controller: "UserDashboardController"
           }
         }
+      }).state('chatRoom', {
+        url: "/chatRoom/:id",
+        views: {
+          default: {
+            templateUrl: "views/_chat_room.html",
+            controller: "ChatRoomController"
+          }
+        }
       });
     }
   ]);

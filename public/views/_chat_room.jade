@@ -1,0 +1,28 @@
+#user-dashboard
+  .row(ng-repeat="user in chatRoom.users")
+    .card
+      .card-image.waves-effect.waves-block.waves-light
+        #display.picture.small
+          img(src='{{user.profile_img}}')
+      .card-content
+        #messages.card-title.activator.grey-text.text-darken-4
+          .panel-body
+            ul.chat
+              li(ng-repeat="message in history.messages")
+                .clearfix
+                  div(ng-class="{received: message.type=='received'}")
+                    .header
+                      small.text-muted
+                        span.glyphicon.glyphicon-time
+                        | {{message.time}}
+                      strong.primary-font {{message.user.username}}
+                    span {{message.text}}
+
+
+      .card-content
+        #sendOptions.card-title.activator.grey-text.text-darken-4
+          .input-group
+            input#btn-input.form-control.input-sm(type="text", placeholder="message")
+            span.input-group-btn
+              button#btn-chat.btn.btn-warning.btn-sm
+                | Send
