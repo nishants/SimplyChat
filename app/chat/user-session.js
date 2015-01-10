@@ -1,19 +1,22 @@
-var UserSession = function(userSocket, chatRoom, username){
-  this.userSocket = userSocket;
-  this.chatroom   = chatRoom;
-  this.username   = username;
+var UserSession = function(userSocket, user){
+  this.userSocket = userSocket  ;
+  this.socketUser = user;
 };
 
-UserSession.prototype.close = function () {
-
+UserSession.prototype.socket = function () {
+  return this.userSocket;
 };
 
-UserSession.prototype.sendMessage = function () {
-
+UserSession.prototype.send = function (message) {
+  this.userSocket.emit(message.name, message.body);
 };
 
-UserSession.prototype.invite = function (sender, chatRoom) {
+UserSession.prototype.user = function () {
+  return this.socketUser;
+};
 
+UserSession.prototype.sameAs = function (that) {
+  return this.socketUser.username == that.socketUser.username;
 };
 
 module.exports = UserSession;
