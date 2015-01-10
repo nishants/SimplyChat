@@ -1,17 +1,20 @@
-var welcomeMessage       = require('./messages/welcome-user');
-var serverSocket  = require('./server-socket');
+var welcomeMessage= require('./messages/welcome-user');
+var ServerSocket  = require('./server-socket');
 var userSessions  = require('./user-sessions')();
 var Users         = require('../models/users');
+var http          = require('http');
+var io            = require('socket.io');
 
-var ChatServer = function (serverSocket) {
-  var userFor = function (socket) {
-    return Users.findByUsername(socket.handshake.query.username);
+var ChatServer = function (sockets) {
+  var userOf = function (userSocket) {
+    return Users.findByUsername(userSocket.handshake.query.username);
   };
 
-  var createUserSession = function (socket) {
+
+  var createUserSession = function (userSocket) {
     var userSession = userSessions.createNew(
-        socket,
-        userFor(socket)
+        userSocket,
+        userOf(userSocket)
     );
 
     userSession.send(
@@ -20,9 +23,12 @@ var ChatServer = function (serverSocket) {
     );
   };
 
-  serverSocket.on('connection', createUserSession);
+  sockets.onConnection(createUserSession);
 };
 
 module.exports = function (app, port) {
-  return new ChatServer(serverSocket(app, port));
+  var server = http.createServer(app);
+  server.listen(port);
+  var sio = io.listen(server);
+  return new ChatServer(new ServerSocket(sio.sockets));
 };
