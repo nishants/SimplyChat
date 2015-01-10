@@ -31,12 +31,6 @@ var chatServer = function (websocket) {
       );
       addUserFor(socket);
     }
-
-    // Create chatroom(user, chatroom)
-    // Send invitation to a user(chatroom, userOne , userTwo)
-    // log off(user)
-    //close chatroom(chatroom)
-    // set status
   };
 
   websocket.on('connection', registerUser);
