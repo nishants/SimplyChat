@@ -1,6 +1,7 @@
-var welcome = require('./messages/welcome-user');
+var welcome       = require('./messages/welcome-user');
+var serverSocket  = require('./server-socket');
 
-var chatServer = function (websocket) {
+var ChatServer = function (websocket) {
   var userSockets = new HashMap();
 
   var addUserFor = function (socket) {
@@ -36,4 +37,6 @@ var chatServer = function (websocket) {
   websocket.on('connection', registerUser);
 };
 
-module.exports = chatServer;
+module.exports = function (app, port) {
+  return new ChatServer(serverSocket(app, port));
+};

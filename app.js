@@ -26,6 +26,5 @@ app.set('view engine', 'jade');
 app.use(express.static('./public'));
 
 //Setup chat server
-var webSocket = require('./app/web-socket')(app, 3000);
-var chatServer = require('./app/chat/chat-server')(webSocket);
+var chatServer = require('./app/chat/chat-server')(app, 3000);
 

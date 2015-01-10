@@ -1,14 +1,16 @@
 var http = require('http');
 var io = require('socket.io');
 
-var websocket = function(app, port) {
+var ServerSocket = function(app, port) {
   var server = http.createServer(app);
   var sio = io.listen(server);
   server.listen(port, function(){
-    console.log("websocket server running at port : "+ port)
+    console.log("ServerSocket server running at port : "+ port)
   });
   
   return sio.sockets;
 }
 
-module.exports = websocket
+module.exports = function(app, port){
+  return new ServerSocket(app, port);
+};
