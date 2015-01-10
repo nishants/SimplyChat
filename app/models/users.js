@@ -15,9 +15,10 @@ var Users = function(){
             profile_img: "images/office.jpg"
         };
     }
+
     return {
-        sessionByUsername: findByUsername
+        findByUsername: findByUsername
     };
 };
 
-module.exports = Users;
+module.exports = Users();

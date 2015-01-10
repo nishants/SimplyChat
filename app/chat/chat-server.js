@@ -1,14 +1,11 @@
 var welcomeMessage       = require('./messages/welcome-user');
 var serverSocket  = require('./server-socket');
 var userSessions  = require('./user-sessions')();
+var Users         = require('../models/users');
 
-var ChatServer = function (websocket) {
+var ChatServer = function (serverSocket) {
   var userFor = function (socket) {
-    return {
-      username: socket.handshake.query.username,
-      status: "online",
-      profile_img: "images/office.jpg"
-    };
+    return Users.findByUsername(socket.handshake.query.username);
   };
 
   var createUserSession = function (socket) {
@@ -23,7 +20,7 @@ var ChatServer = function (websocket) {
     );
   };
 
-  websocket.on('connection', createUserSession);
+  serverSocket.on('connection', createUserSession);
 };
 
 module.exports = function (app, port) {
