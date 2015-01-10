@@ -2,7 +2,6 @@
 // Dependencies
 var express    = require("express");
 var bodyParser = require("body-parser");
-HashMap = require('hashmap').HashMap;
 
 // Create and configure an express app
 var app = express();
