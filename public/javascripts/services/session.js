@@ -1,8 +1,10 @@
 (function () {
   'use strict';
   schat.app.service('session', function ($rootScope) {
-    var onlineUsers;
-    var serverSocket;
+    var onlineUsers = null;
+    var serverSocket = null;
+    var currentChatRoom = null;
+
     return {
       onlineUsers: function () {
         return onlineUsers;
@@ -38,14 +40,16 @@
           onLogin(response.welcome);
         });
       },
+
       invite: function(user, joinChatRoom){
         var invitation = {
           from : {username: $rootScope.currentUser.username},
           to   : {username: user.username}
         };
         serverSocket.emit('invite-user', {invitation: invitation});
-        serverSocket.on('chat-room-created', function (response) {
-          joinChatRoom(response.chatRoomId);
+        serverSocket.on('chat-room-created', function (chatRoom) {
+          currentChatRoom = chatRoom;
+          joinChatRoom(currentChatRoom);
         });
       }
     };

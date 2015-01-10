@@ -38,7 +38,9 @@ var ChatServer = function (websocket) {
       socket.emit(
           'chat-room-created',
           {
-            chatRoomId: "myChatRoom"
+            id: "myChatRoom",
+            users: [],
+            displayName: invitedUser(request.invitation)
           }
       );
     };

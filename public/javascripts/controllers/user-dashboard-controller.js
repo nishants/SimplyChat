@@ -3,8 +3,8 @@
   schat.app.controller('UserDashboardController', function ($scope, $location, session) {
     $scope.users = session.onlineUsers();
 
-    var onAccept = function(chatRoomId){
-      $location.url("/chatRoom/" + chatRoomId)
+    var onAccept = function(chatRoom){
+      $location.url("/chatRoom/" + chatRoom.id)
     };
 
     $scope.talkTo = function (user) {
