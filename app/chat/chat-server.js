@@ -1,6 +1,6 @@
 var welcomeMessage= require('./messages/welcome-user');
 var ServerSocket  = require('./server-socket');
-var userSessions  = require('./user-sessions')();
+var UserSessions  = require('./user-sessions')();
 var Users         = require('../models/users');
 var http          = require('http');
 var io            = require('socket.io');
@@ -12,14 +12,14 @@ var ChatServer = function (sockets) {
 
 
   var createUserSession = function (userSocket) {
-    var userSession = userSessions.createNew(
+    var userSession = UserSessions.createNew(
         userSocket,
         userOf(userSocket)
     );
 
     userSession.send(
         welcomeMessage(userSession.user(),
-                       userSessions.peersOf(userSession))
+                       UserSessions.peersOf(userSession))
     );
   };
 

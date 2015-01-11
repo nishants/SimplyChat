@@ -1,21 +1,15 @@
 
-var ChatRoom = function (id, websocket) {
-  this.id = id;
-  this.websocket = socket;
-  this.userSessions = [];
-  this.displayName = null;
+var ChatRoom = function (id, owner, displayName) {
+  this.chatRoomId = id;
+  this.owner = owner;
+  this.name = displayName;
 };
 
-ChatRoom.prototype.sessionByUsername = function (username) {
-
+ChatRoom.prototype.displayName = function () {
+  return this.name;
 };
-
-ChatRoom.prototype.introduceUser = function (user) {
-
-};
-
-ChatRoom.prototype.broadcast = function (user) {
-
+ChatRoom.prototype.id = function () {
+  return this.chatRoomId;
 };
 
 module.exports = function(id, websocket){

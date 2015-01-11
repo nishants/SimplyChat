@@ -4,7 +4,7 @@
     $scope.users = session.onlineUsers();
 
     var onAccept = function(chatRoom){
-      $location.url("/chatRoom/" + chatRoom.id)
+      $location.url("/chatRoom/" + chatRoom.chatRoomId)
     };
 
     $scope.talkTo = function (user) {

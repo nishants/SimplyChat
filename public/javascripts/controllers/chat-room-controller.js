@@ -7,7 +7,7 @@
     };
     session.chatRoomById($stateParams.chatRoomId, init);
 
-    $scope.history= {}
+    $scope.history= {};
     $scope.history.messages = [
       {
         type: "sent",
@@ -40,7 +40,7 @@
           status: "online",
           profile_img: "images/office.jpg"
         }
-      },
+      }
     ]
   });
 }).call(this);

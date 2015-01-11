@@ -1,15 +1,12 @@
+var ChatRoom = require('./chat-room');
+
 var ChatRooms = function () {
   this.chatrooms = [];
 };
 
-ChatRooms.prototype.sessionByUsername = function (username) {
-
+ChatRooms.prototype.createNew = function (owner, displayName) {
+  var id = "myChatroom";
+  return new ChatRoom(id, owner, displayName);
 };
 
-ChatRooms.prototype.findById = function (chatRoomId) {
-
-};
-
-module.exports = function(){
-  return new ChatRooms();
-};
+module.exports = ChatRooms;
