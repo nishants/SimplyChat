@@ -22,14 +22,13 @@ var UserSession = function(userSocket, user, sessions){
       // if invitedUserSession == null send user not online message
 
       var invitedBy = user;
-      var   onAccept = function(){
-        console.log(request.invitation.to.username + " declined for "+request.chatRoom.displayName())
+      var   onReject = function(){
+        console.log(request.invitation.to.username + " declined for "+request.chatRoom.chatRoomId)
       };
-
-      invitedUserSession.inviteToChatRoom(chatRoom, invitedBy, onAccept);
-
-      // invite other user to join socket
-      // on success/failure, acknowledge the chatroom.
+      var   onAccept = function(chatRoom){
+        console.log(request.invitation.to.username + " accepted for "+chatRoom.chatRoomId)
+      };
+      invitedUserSession.inviteToChatRoom(chatRoom, invitedBy, onAccept, onReject);
     };
   };
 
@@ -42,16 +41,16 @@ UserSession.prototype.inviteToChatRoom = function (chatRoom, invitedBy, onAccept
         'would you join',
         {
           chatRoom: chatRoom,
-          invitedBy: invitedBy
+          by: invitedBy
         }
     );
 
     userSocket.on(
       'join chatroom',
         function (request) {
-          userSocket.join(request.chatRoom.id);
-          if(chatRoom.id() == request.chatRoom.id){
-            onAccept();
+          userSocket.join(request.chatRoom.chatRoomId);
+          if(chatRoom.id() == request.chatRoom.chatRoomId){
+            onAccept(request.chatRoom);
           } else{
             onRejectOrTimeOut();
           }
@@ -68,8 +67,6 @@ UserSession.prototype.inviteToChatRoom = function (chatRoom, invitedBy, onAccept
     );
 
   //setTimeout(onRejectOrTimeOut, chatInviteTimeOutInMillis);
-
-  //return this.userSocket.join(chatRoom.id());
 };
 
 UserSession.prototype.socket = function () {

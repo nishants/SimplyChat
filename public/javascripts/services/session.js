@@ -41,6 +41,17 @@
         });
       },
 
+      onChatInvite: function(onChatinvite){
+        serverSocket.on('would you join', onChatinvite);
+      },
+
+      joinChatRoom: function(chatRoom, onJoining){
+        serverSocket.emit(
+            'join chatroom',
+            {chatRoom: chatRoom}
+        );
+      },
+
       invite: function(user, joinChatRoom){
         var invitation = {
           from : {username: $rootScope.currentUser.username},
